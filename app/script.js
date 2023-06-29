@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 const App = () => {
 
   const [status, setStatus] = useState('off');
-  const [time, setTime] = useState('');
+  const [time, setTime] = useState(null);
   const [timer, setTimer] = useState(null);
 
   let seconds = String(Math.floor(time % 60)).padStart(2, '0');
@@ -29,7 +29,18 @@ const App = () => {
         setTime(10);
       }
     }
-  }, [time]);
+  });
+
+  const stopTimer = () => {
+    setTimer(null);
+    setTime(null);
+    setStatus('off');
+    clearInterval(timer);
+  };
+
+  const closeApp = () => {
+    window.close()
+  };
 
   return (
     <div>
@@ -48,8 +59,8 @@ const App = () => {
         </div>
       )}
       { status === 'off' && (<button className="btn" onClick={startTimer}>Start</button>)}
-      { status !== 'off' && (<button className="btn">Stop</button>)}
-      <button className="btn btn-close">X</button>
+      { status !== 'off' && (<button className="btn" onClick={stopTimer}>Stop</button>)}
+      <button className="btn btn-close" onClick={closeApp}>X</button>
     </div>
   )
 }
