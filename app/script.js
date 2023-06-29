@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const App = () => {
 
@@ -12,12 +12,24 @@ const App = () => {
   let minutes = String(Math.floor(time / 60)).padStart(2, '0');
 
   const startTimer = () => {
-    setTime(1200);
+    setTime(10);
     setStatus('work');
     setTimer(setInterval(() => {
       setTime(time => time - 1);
     }, 1000));
-  }
+  };
+
+  useEffect(() => {
+    if (time === 0) {
+      if (status === 'work') {
+        setStatus('rest');
+        setTime(5);
+      } else {
+        setStatus('work');
+        setTime(10);
+      }
+    }
+  }, [time]);
 
   return (
     <div>
