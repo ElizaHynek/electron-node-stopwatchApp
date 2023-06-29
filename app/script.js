@@ -12,7 +12,7 @@ const App = () => {
   let minutes = String(Math.floor(time / 60)).padStart(2, '0');
 
   const startTimer = () => {
-    setTime(10);
+    setTime(1200);
     setStatus('work');
     setTimer(setInterval(() => {
       setTime(time => time - 1);
@@ -23,10 +23,10 @@ const App = () => {
     if (time === 0) {
       if (status === 'work') {
         setStatus('rest');
-        setTime(5);
+        setTime(20);
       } else {
         setStatus('work');
-        setTime(10);
+        setTime(1200);
       }
     }
   });
