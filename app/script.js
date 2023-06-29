@@ -8,6 +8,16 @@ const App = () => {
   const [time, setTime] = useState('');
   const [timer, setTimer] = useState(null);
 
+  let seconds = String(Math.floor(time % 60)).padStart(2, '0');
+  let minutes = String(Math.floor(time / 60)).padStart(2, '0');
+
+  const startTimer = () => {
+    setTime(1200);
+    setStatus('work');
+    setTimer(setInterval(() => {
+      setTime(time => time - 1);
+    }, 1000));
+  }
 
   return (
     <div>
@@ -18,15 +28,15 @@ const App = () => {
           <p>This app will help you track your time and inform you when it's time to rest.</p>
         </div>
       )}
-      {status === 'work' && (<img src="./images/work.png" />)}
-      {status === 'rest' && (<img src="./images/rest.png" />)}
-      {status !== 'off' && (
+      { status === 'work' && (<img src="./images/work.png" />)}
+      { status === 'rest' && (<img src="./images/rest.png" />)}
+      { status !== 'off' && (
         <div className="timer">
-          18:23
+          {minutes}:{seconds}
         </div>
       )}
-      {status === 'off' && (<button className="btn">Start</button>)}
-      {status !== 'off' && (<button className="btn">Stop</button>)}
+      { status === 'off' && (<button className="btn" onClick={startTimer}>Start</button>)}
+      { status !== 'off' && (<button className="btn">Stop</button>)}
       <button className="btn btn-close">X</button>
     </div>
   )
